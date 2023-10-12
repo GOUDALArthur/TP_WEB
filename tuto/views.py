@@ -9,3 +9,12 @@ def home():
         title = "Hello World",
         books = get_sample()
     )
+
+@app.route("/detail/<id>")
+def detail(id):
+    books = get_sample()
+    book = books[int(id)]
+    return render_template(
+        "detail.html",
+        book=book
+    )
