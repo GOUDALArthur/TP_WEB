@@ -15,6 +15,6 @@ def mkpath (p):
         p))
 
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = (
-#    'sqlite :///'+mkpath('../ myapp.db'))
-#db = SQLAlchemy (app)
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+   'sqlite :///'+mkpath('../ myapp.db'))
+db = SQLAlchemy (app)
