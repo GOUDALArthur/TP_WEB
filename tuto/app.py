@@ -9,12 +9,12 @@ bootstrap = Bootstrap5(app)
 
 
 def mkpath (p):
-    return os.path.normpath (
+    return os.path.normpath(
     os.path.join(
-        os.path.dirname( __file__ ),
+        os.path.dirname(__file__),
         p))
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-   'sqlite :///'+mkpath('../ myapp.db'))
-db = SQLAlchemy (app)
+   'sqlite:///'+ mkpath('../tuto.db'))
+db = SQLAlchemy(app)

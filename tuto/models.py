@@ -14,5 +14,5 @@ class Book(db.Model):
     author = db.relationship("Author",
     backref=db.backref("books", lazy="dynamic"))
 
-def get_sample ():
-    return Book.query.limit (10). all ()
+def get_sample():
+    return Book.query.limit(10).all()
