@@ -1,6 +1,6 @@
 from .app import app
 from flask import render_template
-from .models import get_sample, get_author
+from .models import get_sample, get_author, get_book
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
@@ -19,8 +19,7 @@ def home():
 
 @app.route("/detail/<id>")
 def detail(id):
-    books = get_sample()
-    book = books[int(id)]
+    book = get_book(id)
     return render_template(
         "detail.html",
         book = book
