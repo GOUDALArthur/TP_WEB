@@ -46,3 +46,9 @@ def book_by_author(id) :
 
 def max_id_author() :
     return db.session.query(func.max(Author.id)).scalar()
+
+def get_user(username) :
+        return User.query.get(username)
+
+def user_in_bd(username) :
+    return User.query.get(username)
