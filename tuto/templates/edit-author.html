@@ -1,10 +1,15 @@
 {% extends 'baseBS.html' %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='edit-author.css')}}"> 
+{% endblock %}
 {% block content %}
-<h1>Edit author : {{ author.name }}</h1>
-<h1>FEUR</h1>
-<form method="POST" action ="">
-  {{ form.hidden_tag() }}
-  {{ form.name.label }} {{ form.name(size=50) }}
-  <input type="submit" value="Enregistrer">
-</form>
+<div class="test"></div>
+  <h1>Edit author : {{ author.name }}</h1>
+  <form role = "form" method="POST" action ="{{ url_for('save_author') }}">
+    {{ form.hidden_tag() }}
+    {{ form.name.label }} {{ form.name(size=50) }}
+    <input type="submit" value="Enregistrer">
+  </form>
+</div>
 {% endblock %}

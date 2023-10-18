@@ -1,4 +1,5 @@
 from .app import db
+from sqlalchemy import *
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key =True)
@@ -28,3 +29,9 @@ def get_author(id):
 
 def get_book(id):
     return Book.query.get(id)
+
+def book_by_author(id) :
+    query = select(Book).where(Book.author_id == id)
+    res = db.session.execute(query)
+    books = [row[0] for row in res]
+    return books
