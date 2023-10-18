@@ -1,6 +1,6 @@
 from .app import app, db
 from flask import render_template, url_for, redirect
-from .models import get_sample, get_author, get_book, Author, book_by_author
+from .models import get_sample, get_author, get_book, Author, book_by_author, max_id_author
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
@@ -8,6 +8,10 @@ from wtforms.validators import DataRequired
 class AuthorForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Nom', validators = [DataRequired()])
+
+class AddAuthorForm(FlaskForm) :
+    id = HiddenField('id')
+    name = StringField("Entre le nom du nouvelle auteur", validators=[DataRequired()])
 
 @app.route("/")
 def home():
@@ -57,4 +61,28 @@ def author(id) :
         "author.html",
         author = author,
         books = books
+    )
+
+@app.route("/add/author/")
+def add_author() :
+    max = max_id_author() + 1
+    f = AddAuthorForm(id=max, name = "John")
+    return render_template(
+        "add-author.html",
+        form=f
+    )
+
+@app.route("/save/add/author/", methods=("POST",))
+def save_add_author() :
+    a = None
+    f = AddAuthorForm()
+    if f.validate_on_submit() :
+        a = Author(name=f.name.data)
+        db.session.add(a)
+        db.session.commit()
+        return redirect(url_for('author', id=a.id))
+    a = get_author(int(f.id.data))
+    return render_template(
+        "add-author.html",
+        author=a, form=f
     )

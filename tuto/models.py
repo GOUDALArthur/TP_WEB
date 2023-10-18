@@ -35,3 +35,6 @@ def book_by_author(id) :
     res = db.session.execute(query)
     books = [row[0] for row in res]
     return books
+
+def max_id_author() :
+    return db.session.query(func.max(Author.id)).scalar()
