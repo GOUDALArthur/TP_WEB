@@ -1,6 +1,7 @@
 from .app import db
 from sqlalchemy import *
 from flask_login import UserMixin
+from .app import login_manager
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key =True)
@@ -51,4 +52,8 @@ def get_user(username) :
         return User.query.get(username)
 
 def user_in_bd(username) :
+    return User.query.get(username)
+
+@login_manager.user_loader
+def load_user (username):
     return User.query.get(username)
