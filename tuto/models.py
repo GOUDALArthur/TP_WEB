@@ -21,6 +21,13 @@ class Book(db.Model):
     def __repr__(self):
         return "<Book (%d) %s>" % (self.id, self.title)
 
+class User(db.Model ):
+    username = db.Column(db.String (50) , primary_key =True)
+    password = db.Column(db.String (64))
+
+    def get_id(self):
+        return self.username
+
 def get_sample():
     return Book.query.all()
 
