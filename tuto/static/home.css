@@ -8,6 +8,10 @@ div.sample {
     margin-right: 25%;
 }
 
+a {
+    text-decoration: none;
+}
+
 main {
     margin-top: 8em;
 }
