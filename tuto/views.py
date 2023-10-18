@@ -1,12 +1,11 @@
 from .app import app, db
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, request
 from .models import get_sample, get_author, get_book, Author, book_by_author, max_id_author, User
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField, PasswordField
 from wtforms.validators import DataRequired
 from hashlib import sha256
-from flask_login import login_user , current_user, logout_user
-from flask import request
+from flask_login import login_user , current_user, logout_user, login_required
 
 class AuthorForm(FlaskForm):
     id = HiddenField('id')
@@ -19,6 +18,7 @@ class AddAuthorForm(FlaskForm) :
 class LoginForm(FlaskForm):
     username = StringField('Username')
     password = PasswordField('Password')
+    next = HiddenField ()
                               
     def get_authenticated_user(self):
         user = User.query.get(self.username.data)
@@ -46,6 +46,7 @@ def detail(id):
     )
 
 @app.route("/edit/author/<int:id>")
+@login_required
 def edit_author(id):
     a = get_author(id)
     f = AuthorForm(id = a.id, name = a.name)
@@ -80,6 +81,7 @@ def author(id) :
     )
 
 @app.route("/add/author/")
+@login_required
 def add_author() :
     max = max_id_author() + 1
     f = AddAuthorForm(id=max, name = "John")
@@ -103,17 +105,21 @@ def save_add_author() :
         author=a, form=f
     )
 
-@app.route("/login/", methods=("GET","POST",))
-def login():
+@app.route("/login/", methods =("GET","POST",))
+def login ():
     f = LoginForm()
-    if f.validate_on_submit():
-        user = f.get_authenticated_user()
+    if not f.is_submitted():
+        f.next.data = request.args.get("next")
+    elif f.validate_on_submit():
+        user =f.get_authenticated_user()
         if user:
             login_user(user)
-            return redirect(url_for("home"))
-    return render_template(
+            next = f.next.data or url_for("home")
+            return redirect(next)
+    return render_template (
         "login.html",
         form=f)
+
 
 @app.route("/logout/")
 def logout():
