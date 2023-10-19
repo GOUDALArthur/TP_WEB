@@ -37,7 +37,7 @@ class SearchForm(FlaskForm):
 def home():
     return render_template(
         "home.html",
-        title = "Hello World",
+        title = "My books",
         books = get_sample()
     )
 
