@@ -1,8 +1,8 @@
 from .app import app, db
 from flask import render_template, url_for, redirect, request
-from .models import get_sample, get_author, get_book, Author, book_by_author, max_id_author, User
+from .models import get_sample, get_author, get_book, Author, book_by_author, max_id_author, User, Book
 from flask_wtf import FlaskForm
-from wtforms import StringField, HiddenField, PasswordField
+from wtforms import StringField, HiddenField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from hashlib import sha256
 from flask_login import login_user , current_user, logout_user, login_required
@@ -18,7 +18,7 @@ class AddAuthorForm(FlaskForm) :
 class LoginForm(FlaskForm):
     username = StringField('Username')
     password = PasswordField('Password')
-    next = HiddenField ()
+    next = HiddenField()
                               
     def get_authenticated_user(self):
         user = User.query.get(self.username.data)
@@ -28,6 +28,10 @@ class LoginForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
+    
+class SearchForm(FlaskForm):
+    searched = StringField('Searched', validators=[DataRequired()])
+    submit = SubmitField("Submit", validators=[DataRequired()])
 
 @app.route("/")
 def home():
@@ -126,3 +130,22 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.context_processor
+def base():
+    form = SearchForm()
+    return dict(form=form)
+
+@app.route("/search/", methods =("POST",))
+def search():
+    f = SearchForm()
+    content_searched = f.searched.data
+    if content_searched == "":
+        return home()
+    books = Book.query
+    books = books.filter(Book.title.like(content_searched + '%')).order_by(Book.title).all()
+    return render_template (
+    "search.html",
+    form=f,
+    searched = content_searched,
+    title = "Hello World",
+    books = books)
