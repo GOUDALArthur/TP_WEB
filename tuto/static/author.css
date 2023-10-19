@@ -36,7 +36,16 @@ main > .container {
     flex-grow: 1;
 }
 
-/* CSS */
+a {
+    text-decoration: none;
+    color: white !important;
+}
+
+header a {
+    margin: 1em;
+}
+
+/* Bouton edit author */
 .button-30 {
     align-items: center;
     background-color: #FCFCFD;

@@ -4,10 +4,24 @@ footer {
     width: 100%;
 }
 
+main {
+    margin-top: 8em;
+    text-align: center;
+}
+
 main > .container {
     padding: 60px 15px 0;
 }
 
 h1 {
     color: red;
+}
+
+a {
+    text-decoration: none;
+    color: white !important;
+}
+
+header a {
+    margin: 1em;
 }
