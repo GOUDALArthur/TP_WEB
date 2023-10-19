@@ -11,11 +11,13 @@
     {% endif %}
     <div class="livres">
         {% for book in books %}
-            <a href="{{ url_for('detail', id=book.id) }}">
-                <img src="{{ url_for('static', filename='images/' + book.img) }}"
-                alt="{{ book.title }}" title="{{ book.title }}">
-            </a>
-            <p>{{ book.title }}</p>
+            <div class="livre">
+                <a href="{{ url_for('detail', id=book.id) }}">
+                    <img src="{{ url_for('static', filename='images/' + book.img) }}"
+                    alt="{{ book.title }}" title="{{ book.title }}">
+                </a>
+                <p>{{ book.title }}</p>
+            </div>
         {% endfor %}
     </div>
 </div>

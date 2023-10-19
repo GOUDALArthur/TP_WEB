@@ -14,9 +14,10 @@ h1 {
 .livres {
     margin-top: 5%;
     margin-bottom: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 }
-
-
 
 footer {
     position: fixed;
@@ -26,4 +27,11 @@ footer {
 
 main > .container {
     padding: 60px 15px 0;
+}
+
+.livre {
+    margin-right: 5%;
+    margin-left: 5%;
+    width: 150px;
+    flex-grow: 1;
 }
