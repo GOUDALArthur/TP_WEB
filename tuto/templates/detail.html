@@ -12,11 +12,14 @@
     </a>
     <div class="card-body">
             <h5 class="card-text card-footer">
-                    Auteur : <a href="{{ url_for('author', id=book.author_id) }}">{{ book.author.name }}</a>
+                    Auteur : {{ book.author.name }}
             </h5>
             <h6 class="card-text card-footer">
                 Prix : {{ book.price }} €
         </h6>
     </div>
+    <a href="{{ url_for('author', id=book.author_id) }}">
+        <button>Voir l'auteur</button>
+    </a>
 </div>
 {% endblock %}
