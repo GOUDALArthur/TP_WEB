@@ -7,7 +7,9 @@
 <div class="test">
     <h1>{{ author.name }}</h1>
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('edit_author', id=author.id) }}">Edit</a>
+    <a href="{{ url_for('edit_author', id=author.id) }}">
+        <button class="button-30" role="button">Edit Author</button>
+    </a>
     {% endif %}
     <div class="livres">
         {% for book in books %}
