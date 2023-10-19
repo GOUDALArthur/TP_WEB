@@ -1,4 +1,7 @@
 from .app import db
+from sqlalchemy import *
+from flask_login import UserMixin
+from .app import login_manager
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key =True)
@@ -20,8 +23,37 @@ class Book(db.Model):
     def __repr__(self):
         return "<Book (%d) %s>" % (self.id, self.title)
 
+class User(db.Model , UserMixin ):
+    username = db.Column(db.String (50) , primary_key =True)
+    password = db.Column(db.String (64))
+
+    def get_id(self ):
+        return self.username
+
 def get_sample():
-    return Book.query.limit(10).all()
+    return Book.query.all()
 
 def get_author(id):
     return Author.query.get(id)
+
+def get_book(id):
+    return Book.query.get(id)
+
+def book_by_author(id) :
+    query = select(Book).where(Book.author_id == id)
+    res = db.session.execute(query)
+    books = [row[0] for row in res]
+    return books
+
+def max_id_author() :
+    return db.session.query(func.max(Author.id)).scalar()
+
+def get_user(username) :
+        return User.query.get(username)
+
+def user_in_bd(username) :
+    return User.query.get(username)
+
+@login_manager.user_loader
+def load_user (username):
+    return User.query.get(username)

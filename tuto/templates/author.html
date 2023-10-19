@@ -1,0 +1,22 @@
+{% extends 'baseBS.html' %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='author.css')}}"> 
+{% endblock %}
+{% block content %}
+<div class="test">
+    <h1>{{ author.name }}</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('edit_author', id=author.id) }}">Edit</a>
+    {% endif %}
+    <div class="livres">
+        {% for book in books %}
+            <a href="{{ url_for('detail', id=book.id) }}">
+                <img src="{{ url_for('static', filename='images/' + book.img) }}"
+                alt="{{ book.title }}" title="{{ book.title }}">
+            </a>
+            <p>{{ book.title }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -6,10 +6,12 @@ div.sample {
     text-align: center;
     margin-left: 25%;
     margin-right: 25%;
+    margin-bottom: 10%;
 }
 
 main {
     margin-top: 8em;
+    text-align: center;
 }
 
 footer {
@@ -25,4 +27,13 @@ main > .container {
 div.mycard {
     margin: auto; 
     width: 18rem; 
+}
+
+a {
+    text-decoration: none;
+    color: white !important;
+}
+
+header a {
+    margin: 1em;
 }
