@@ -26,13 +26,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                   <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled">Disabled</a>
+                      <a class="nav-link active" aria-current="page" href="/add/author/">Ajouter un auteur</a>
                     </li>
                   </ul>
                   <form method="POST" action="{{ url_for('search') }}" class="d-flex" role="search">
@@ -46,6 +40,11 @@
                       <li><a href="{{ url_for('logout') }}">
                         <span class="glyphicon glyphicon-log-out" title="Logout">Logout</span>
                       </a></li>
+                    {% endif %}
+                    {% if current_user.is_authenticated == false %}
+                    <li><a href="{{ url_for('login') }}">
+                      <span class="glyphicon glyphicon-log-in" title="Login">Login</span>
+                    </a></li>
                     {% endif %}
                   </ul>
                 </div>
@@ -63,7 +62,7 @@
         </main>
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container">
-              <span class="text-muted">Place sticky footer content here.</span>
+              <span class="text-muted">IUT'O - Arthur GOUDAL - Killian OUZET</span>
             </div>
           </footer>
         {% block scripts %}

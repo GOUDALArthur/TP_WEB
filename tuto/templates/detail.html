@@ -1,7 +1,7 @@
 {% extends 'baseBS.html' %}
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='detail.css')}}"> 
 {% endblock %}
 {% block content %}
 <div class="card border-light mb-3 mycard">
@@ -18,5 +18,8 @@
                 Prix : {{ book.price }} €
         </h6>
     </div>
+    <a href="{{ url_for('author', id=book.author_id) }}">
+        <button>Voir l'auteur</button>
+    </a>
 </div>
 {% endblock %}

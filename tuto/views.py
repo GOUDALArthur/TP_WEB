@@ -37,7 +37,7 @@ class SearchForm(FlaskForm):
 def home():
     return render_template(
         "home.html",
-        title = "Hello World",
+        title = "My books",
         books = get_sample()
     )
 
@@ -142,7 +142,7 @@ def search():
     if content_searched == "":
         return home()
     books = Book.query
-    books = books.filter(Book.title.like(content_searched + '%')).order_by(Book.title).all()
+    books = books.filter(Book.title.like('%' + content_searched + '%')).order_by(Book.title).all()
     return render_template (
     "search.html",
     form=f,
