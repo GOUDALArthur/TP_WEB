@@ -41,6 +41,11 @@
                         <span class="glyphicon glyphicon-log-out" title="Logout">Logout</span>
                       </a></li>
                     {% endif %}
+                    {% if current_user.is_authenticated == false %}
+                    <li><a href="{{ url_for('login') }}">
+                      <span class="glyphicon glyphicon-log-in" title="Login">Login</span>
+                    </a></li>
+                    {% endif %}
                   </ul>
                 </div>
               </div>
